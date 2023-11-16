@@ -78,13 +78,33 @@ class StoryList {
 
   async addStory(user, { title, author, url }) {
     // Grab current user token
-    let token = this.user.loginToken; // error here
+    // let token = this.user.loginToken; // error here
+    let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkhlaXNlbmJlcmciLCJpYXQiOjE3MDAxNjM5NTZ9.WeUVgX8NtcOTewAOrm4mhS_NXW3trAliFV0CmJvKChU";
 
     // add story data to API
-    const response = await fetch(`${BASE_URL}/stories`, {method : "POST",
-                     body: `token: ${token}, "story": {"author": ${author},
-                     "title" : ${title}, "url": ${url}}`,
-                     headers: {"Content-Type": "application/json"}});
+    const options = {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: '{"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkhlaXNlbmJlcmciLCJpYXQiOjE3MDAxNjM5NTZ9.WeUVgX8NtcOTewAOrm4mhS_NXW3trAliFV0CmJvKChU","story":{"author":"Elie Schoppik","title":"Four Tips for Moving Faster as a Developer","url":"https://www.rithmschool.com/blog/developer-productivity"}}'
+    };
+
+    const response = fetch('https://hack-or-snooze-v3.herokuapp.com/stories', options);
+    console.log(response);
+
+    // const response = await fetch(
+    //   `${BASE_URL}/stories`,
+    //   {
+    //     method : "POST",
+    //     body: `{
+    //       "token": ${token},
+    //       "story": {
+    //         "author": ${author},
+    //         "title" : ${title},
+    //         "url": ${url}
+    //       }
+    //     }`,
+    //     headers: {"Content-Type": "application/json"}
+    //   });
     const storyObj = await response.json();
 
     // make story instance
@@ -95,6 +115,9 @@ class StoryList {
 
     // Return newStory
     return newStory;
+  //   let newStory = await storyList.addStory(currentUser,
+  //     {author:"Elie Schoppik",title:"Four Tips for Moving Faster as a Developer", url: "https://www.rithmschool.com/blog/developer-productivity"});
+
 
   }
 }
