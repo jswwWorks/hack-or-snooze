@@ -53,6 +53,9 @@ class StoryList {
     //  class directly. Why doesn't it make sense for getStories to be an
     //  instance method?
 
+    // We don't want multiple StoryLists, we just want one! (and it gets queued
+    // at the beginning)
+
     // query the /stories endpoint (no auth required)
     const response = await fetch(`${BASE_URL}/stories`, {
       method: "GET",
@@ -73,8 +76,26 @@ class StoryList {
    * Returns the new Story instance
    */
 
-  async addStory( /* user, newStory */) {
-    // UNIMPLEMENTED: complete this function!
+  async addStory(user, { title, author, url }) {
+    // Grab current user token
+    let token = this.user.loginToken; // error here
+
+    // add story data to API
+    const response = await fetch(`${BASE_URL}/stories`, {method : "POST",
+                     body: `token: ${token}, "story": {"author": ${author},
+                     "title" : ${title}, "url": ${url}}`,
+                     headers: {"Content-Type": "application/json"}});
+    const storyObj = await response.json();
+
+    // make story instance
+    const newStory = new Story(storyObj);
+
+    // add story to storyList
+    this.stories.push(newStory);
+
+    // Return newStory
+    return newStory;
+
   }
 }
 
