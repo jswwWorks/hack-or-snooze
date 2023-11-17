@@ -27,6 +27,7 @@ class Story {
     // FIXME: complete this function!
     // Grab full url
     let fullStr = this.url;
+    console.log(this.url);
 
     // Find location of first slash
     let firstSlash = fullStr.indexOf('/');
@@ -45,6 +46,7 @@ class Story {
         hostName += fullStr[i];
       }
     }
+    console.log(hostName);
 
     // return hostName
     return hostName;
@@ -129,7 +131,6 @@ class StoryList {
     // make story instance
     const newStory = new Story(storyObj);
     console.log(newStory);
-
 
     // add story to storyList
     this.stories.push(newStory);

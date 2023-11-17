@@ -34,6 +34,8 @@ function updateNavOnLogin() {
   $(".main-nav-links").show();
   $navLogin.hide();
   $navLogOut.show();
+  //displays the submit btn we created upon login completion
+  $("#sub").show();
   $navUserProfile.text(`${currentUser.username}`).show();
 }
 

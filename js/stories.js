@@ -52,7 +52,7 @@ function putStoriesOnPage() {
 }
 
 
-/** Takes nothing, is called when user submits the form.
+/** Takes an event, is called when user submits the form.
  *  Gathers story submission data and calls addStory(), then puts newStory
  *  onto page. Returns nothing.
  */
@@ -72,6 +72,7 @@ async function submitStory(evt) {
   const newStory = await storyList.addStory(currentUser, {"title":titleInput, "author": authorInput, "url": urlInput});
   // console.log("returned from addStory method",newStory);
   // put new story onto page
+  location.reload();
   putStoriesOnPage();
 }
 
