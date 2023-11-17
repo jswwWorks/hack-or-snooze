@@ -1,7 +1,7 @@
 "use strict";
 
 // This is the global list of the stories, an instance of StoryList
-let storyList;
+let storyList = new StoryList();
 
 /** Get and show stories when site first loads. */
 
@@ -60,6 +60,7 @@ async function submitStory(evt) {
   // TODO:Grab current user
   evt.preventDefault();
   // Grab inputs
+  //change variables names , remove Input name
   const titleInput = $("#titleInput").val();
   const authorInput = $("#authorInput").val();
   const urlInput = $("#urlInput").val();
@@ -72,10 +73,13 @@ async function submitStory(evt) {
   const newStory = await storyList.addStory(currentUser, {"title":titleInput, "author": authorInput, "url": urlInput});
   // console.log("returned from addStory method",newStory);
   // put new story onto page
-  location.reload();
+
+  //change DOM without reloading page; use jQuery methods
+  // location.reload();
   putStoriesOnPage();
 }
 
 
 // Click event that calls newStorySubmission
+//TODO: browser currently submits when pressing enter on keyboard;listen for "submit"
 $("#submitStoryButton").on("click", submitStory);

@@ -103,6 +103,8 @@ function createSubmitLink(){
 /** When "Submit" in navbar is clicked, it causes the form element to display
  *
  */
+
+//TODO: add jQuery objects to constants in main; change name of id sub to something more readable
 $("#sub").on("click", function(){
   $(".createStoryForm").show()
 });

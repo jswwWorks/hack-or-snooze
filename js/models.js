@@ -26,14 +26,16 @@ class Story {
   getHostName() {
     // FIXME: complete this function!
     // Grab full url
-    let fullStr = this.url;
+    //use built in URL class to fix port in hostname
+    const fullStr = this.url;
     console.log(this.url);
 
     // Find location of first slash
-    let firstSlash = fullStr.indexOf('/');
+    const firstSlash = fullStr.indexOf('/');
 
     // Find location of first character of hostname
-    let startIndex = firstSlash + 2;
+    // const startIndex = firstSlash + 2;
+    const startIndex = firstSlash + '//'.length;
 
     let hostName = "";
 
@@ -100,7 +102,9 @@ class StoryList {
    * Returns the new Story instance
    */
 
-  async addStory(user, storyDetails) {
+  //TODO: change naming for story object, change URL to use BASE_URL, remove
+  //quotes from keys in JS object
+  async addStory(user, {title, author, url}) {
     // Grab current user token
     const token = user.loginToken;
     // console.log("userToken ", token);
@@ -112,9 +116,9 @@ class StoryList {
     const bodyContent = JSON.stringify({
                         "token":token,
                         "story": {
-                          "author":storyDetails["author"],
-                          "title":storyDetails["title"],
-                          "url":storyDetails["url"]
+                          title,
+                          author,
+                          url
                         }});
     console.log("JSON string ", bodyContent);
     // add story data to API
