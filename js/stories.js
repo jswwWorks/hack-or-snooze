@@ -1,7 +1,7 @@
 "use strict";
 
 // This is the global list of the stories, an instance of StoryList
-let storyList = new StoryList();
+let storyList;
 
 /** Get and show stories when site first loads. */
 
@@ -57,29 +57,29 @@ function putStoriesOnPage() {
  *  onto page. Returns nothing.
  */
 async function submitStory(evt) {
-  // TODO:Grab current user
-  evt.preventDefault();
-  // Grab inputs
-  //change variables names , remove Input name
-  const titleInput = $("#titleInput").val();
-  const authorInput = $("#authorInput").val();
-  const urlInput = $("#urlInput").val();
 
-  console.log("titleInput= ", titleInput,
-              "authorInput=", authorInput,
-              "urlInput= ", urlInput);
-  console.log("currentUser",currentUser);
+  evt.preventDefault();
+  // Grab information from what user inputted
+  const title = $("#titleInput").val();
+  const author = $("#authorInput").val();
+  const url = $("#urlInput").val();
+
   // call addStory method
-  const newStory = await storyList.addStory(currentUser, {"title":titleInput, "author": authorInput, "url": urlInput});
-  // console.log("returned from addStory method",newStory);
-  // put new story onto page
+  const newStory = await storyList.addStory(currentUser,
+                  {
+                    "title": title,
+                    "author": author,
+                    "url": url
+                  });
 
   //change DOM without reloading page; use jQuery methods
-  // location.reload();
-  putStoriesOnPage();
+  const newStoryMarkup = generateStoryMarkup(newStory);
+
+    // put new story onto page
+  $allStoriesList.append(newStoryMarkup);
+
 }
 
 
-// Click event that calls newStorySubmission
-//TODO: browser currently submits when pressing enter on keyboard;listen for "submit"
-$("#submitStoryButton").on("click", submitStory);
+// When user submits story with form, calls submitStory()
+$storySubmissionForm.on("submit", submitStory);

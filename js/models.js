@@ -23,35 +23,16 @@ class Story {
 
   /** Parses hostname out of URL and returns it. */
 
+  // FIXME: models.js:31 Uncaught (in promise) TypeError: Failed to construct
+  //'URL': Invalid URL
+
   getHostName() {
-    // FIXME: complete this function!
-    // Grab full url
-    //use built in URL class to fix port in hostname
-    const fullStr = this.url;
-    console.log(this.url);
 
-    // Find location of first slash
-    const firstSlash = fullStr.indexOf('/');
+    // Create url object that can be used to access hostname
+    const urlObject = new URL(this.url);
 
-    // Find location of first character of hostname
-    // const startIndex = firstSlash + 2;
-    const startIndex = firstSlash + '//'.length;
-
-    let hostName = "";
-
-    // Populate hostName with chars until we reach another "/"
-    for (let i = startIndex; i < fullStr.length; i++) {
-      if (fullStr[i] === "/") {
-        break
-      }
-      else {
-        hostName += fullStr[i];
-      }
-    }
-    console.log(hostName);
-
-    // return hostName
-    return hostName;
+    // locate and return hostname
+    return urlObject.hostname;
   }
 }
 
@@ -102,51 +83,42 @@ class StoryList {
    * Returns the new Story instance
    */
 
-  //TODO: change naming for story object, change URL to use BASE_URL, remove
-  //quotes from keys in JS object
   async addStory(user, {title, author, url}) {
     // Grab current user token
     const token = user.loginToken;
-    // console.log("userToken ", token);
-    // console.log("author ", author);
-    // console.log("title ", title);
-    // console.log("url ", url);
-    // // title, author, url
-    // make json for post request
+
+    // Make json for post request
     const bodyContent = JSON.stringify({
-                        "token":token,
-                        "story": {
+                        token: token,
+                        story: {
                           title,
                           author,
                           url
                         }});
     console.log("JSON string ", bodyContent);
-    // add story data to API
+
+    // Add story data to API
     const options = {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: bodyContent
     };
 
-    const response = await fetch('https://hack-or-snooze-v3.herokuapp.com/stories', options);
+    // Post request
+    const response = await fetch(`${BASE_URL}/stories`, options);
 
-    const storyObj = await response.json();
+    // Grab data for new story from the post request
+    const dataForNewStory = await response.json();
 
     // make story instance
-    const newStory = new Story(storyObj);
-    console.log(newStory);
+    const newStory = new Story(dataForNewStory);
 
     // add story to storyList
     this.stories.push(newStory);
-    //storyList.push(newStory);
-    console.log(storyList);
+
     // Return newStory
     return newStory;
-  //   let newStory = await storyList.addStory(currentUser,
-  //     {author:"Elie Schoppik",title:"Four Tips for Moving Faster as a Developer", url: "https://www.rithmschool.com/blog/developer-productivity"});
-    // name: Eric
-    // username: EricH
-    // pass: "Letmetryyourfeature"
+
 }
 }
 
