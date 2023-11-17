@@ -29,6 +29,7 @@ class Story {
   getHostName() {
 
     // Create url object that can be used to access hostname
+    console.log(this.url);
     const urlObject = new URL(this.url);
 
     // locate and return hostname
@@ -84,9 +85,13 @@ class StoryList {
    */
 
   async addStory(user, {title, author, url}) {
+    console.log("user", user);
+    console.log("title", title,"author", author, "url", url);
+
     // Grab current user token
     const token = user.loginToken;
 
+    // console.log("token", token);
     // Make json for post request
     const bodyContent = JSON.stringify({
                         token: token,
@@ -95,7 +100,7 @@ class StoryList {
                           author,
                           url
                         }});
-    console.log("JSON string ", bodyContent);
+    // console.log("JSON string ", bodyContent);
 
     // Add story data to API
     const options = {
@@ -104,18 +109,20 @@ class StoryList {
       body: bodyContent
     };
 
+    console.log("options", options);
     // Post request
     const response = await fetch(`${BASE_URL}/stories`, options);
 
     // Grab data for new story from the post request
     const dataForNewStory = await response.json();
 
+    console.log("dataForNewStory from API",dataForNewStory);
     // make story instance
-    const newStory = new Story(dataForNewStory);
+    const newStory = new Story(dataForNewStory.story);
 
     // add story to storyList
     this.stories.push(newStory);
-
+    console.log("is this also undefined",newStory);
     // Return newStory
     return newStory;
 

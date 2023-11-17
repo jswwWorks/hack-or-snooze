@@ -65,6 +65,7 @@ async function submitStory(evt) {
   const url = $("#urlInput").val();
 
   // call addStory method
+  // console.log("expecting an instance of Story:", newStory);
   const newStory = await storyList.addStory(currentUser,
                   {
                     "title": title,
@@ -73,10 +74,11 @@ async function submitStory(evt) {
                   });
 
   //change DOM without reloading page; use jQuery methods
+  console.log("expecting an instance of Story:", newStory);
   const newStoryMarkup = generateStoryMarkup(newStory);
-
+  console.log("expecting HTML markup", newStoryMarkup);
     // put new story onto page
-  $allStoriesList.append(newStoryMarkup);
+  $allStoriesList.prepend(newStoryMarkup);
 
 }
 
