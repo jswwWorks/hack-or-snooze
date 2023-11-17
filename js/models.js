@@ -25,7 +25,29 @@ class Story {
 
   getHostName() {
     // FIXME: complete this function!
-    return "hostname.com";
+    // Grab full url
+    let fullStr = this.url;
+
+    // Find location of first slash
+    let firstSlash = fullStr.indexOf('/');
+
+    // Find location of first character of hostname
+    let startIndex = firstSlash + 2;
+
+    let hostName = "";
+
+    // Populate hostName with chars until we reach another "/"
+    for (let i = startIndex; i < fullStr.length; i++) {
+      if (fullStr[i] === "/") {
+        break
+      }
+      else {
+        hostName += fullStr[i];
+      }
+    }
+
+    // return hostName
+    return hostName;
   }
 }
 
@@ -110,8 +132,8 @@ class StoryList {
 
 
     // add story to storyList
-    // this.stories.push(newStory);
-    storyList.push(newStory);
+    this.stories.push(newStory);
+    //storyList.push(newStory);
     console.log(storyList);
     // Return newStory
     return newStory;
