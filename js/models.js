@@ -76,19 +76,23 @@ class StoryList {
    * Returns the new Story instance
    */
 
-  async addStory(user, { title, author, url }) {
+  async addStory(user, storyDetails) {
     // Grab current user token
     const token = user.loginToken;
-
+    // console.log("userToken ", token);
+    // console.log("author ", author);
+    // console.log("title ", title);
+    // console.log("url ", url);
+    // // title, author, url
     // make json for post request
     const bodyContent = JSON.stringify({
                         "token":token,
                         "story": {
-                          "author":author,
-                          "title":title,
-                          "url":url
+                          "author":storyDetails["author"],
+                          "title":storyDetails["title"],
+                          "url":storyDetails["url"]
                         }});
-
+    console.log("JSON string ", bodyContent);
     // add story data to API
     const options = {
       method: 'POST',
@@ -99,14 +103,16 @@ class StoryList {
     const response = await fetch('https://hack-or-snooze-v3.herokuapp.com/stories', options);
 
     const storyObj = await response.json();
-    console.log(storyObj);
 
     // make story instance
     const newStory = new Story(storyObj);
+    console.log(newStory);
+
 
     // add story to storyList
-    this.stories.push(newStory);
-
+    // this.stories.push(newStory);
+    storyList.push(newStory);
+    console.log(storyList);
     // Return newStory
     return newStory;
   //   let newStory = await storyList.addStory(currentUser,

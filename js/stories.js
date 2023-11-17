@@ -56,9 +56,9 @@ function putStoriesOnPage() {
  *  Gathers story submission data and calls addStory(), then puts newStory
  *  onto page. Returns nothing.
  */
-function submitStory() {
+async function submitStory(evt) {
   // TODO:Grab current user
-
+  evt.preventDefault();
   // Grab inputs
   const titleInput = $("#titleInput").val();
   const authorInput = $("#authorInput").val();
@@ -67,13 +67,12 @@ function submitStory() {
   console.log("titleInput= ", titleInput,
               "authorInput=", authorInput,
               "urlInput= ", urlInput);
-              
+  console.log("currentUser",currentUser);
   // call addStory method
-  const nameVar = await storyList.addStory(user,
-                  {titleInput, authorInput, urlInput});
-
+  const newStory = await storyList.addStory(currentUser, {"title":titleInput, "author": authorInput, "url": urlInput});
+  // console.log("returned from addStory method",newStory);
   // put new story onto page
-
+  putStoriesOnPage();
 }
 
 
