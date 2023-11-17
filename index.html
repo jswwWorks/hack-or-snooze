@@ -19,7 +19,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Hack or Snooze</title>
-  <link rel="stylesheet" 
+  <link rel="stylesheet"
         href="https://www.unpkg.com/bootstrap-icons/font/bootstrap-icons.css">
   <link rel="stylesheet" href="css/site.css">
   <link rel="stylesheet" href="css/user.css">
@@ -34,12 +34,36 @@
   <div class="navbar-brand">
     <a class="nav-link" href="#" id="nav-all">Hack or Snooze</a>
   </div>
+  <div class="openSubmitFormLink">
+    <a class="nav-link" id="sub">Submit</a>
+  </div>
   <div class="nav-right">
     <a class="nav-link" href="#" id="nav-login">login/signup</a>
     <a class="nav-link" href="#" id="nav-user-profile"></a>
     <a class="hidden" id="nav-logout" href="#"><small>(logout)</small></a>
   </div>
 </nav>
+
+<!-- Form itself to submit new story -->
+<div>
+  <form class='createStoryForm' style="display: none">
+    <div style="display: inline">
+      <label>author</label>
+      <input type='text' required id="authorInput">
+    </div>
+    <div style="display: inline">
+      <label>title</label>
+      <input type='text' required id="titleInput">
+    </div>
+    <div style="display: inline">
+      <label>url</label>
+      <input type='text' required id="urlInput">
+    </div>
+    <div>
+      <input type="submit" id="submitStoryButton">
+    </div>
+  </form>
+</div>
 
 <!-- area for stories (all stories, user stories, favorites) -->
 <section class="stories-container container">

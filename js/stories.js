@@ -50,3 +50,32 @@ function putStoriesOnPage() {
 
   $allStoriesList.show();
 }
+
+
+/** Takes nothing, is called when user submits the form.
+ *  Gathers story submission data and calls addStory(), then puts newStory
+ *  onto page. Returns nothing.
+ */
+function submitStory() {
+  // TODO:Grab current user
+
+  // Grab inputs
+  const titleInput = $("#titleInput").val();
+  const authorInput = $("#authorInput").val();
+  const urlInput = $("#urlInput").val();
+
+  console.log("titleInput= ", titleInput,
+              "authorInput=", authorInput,
+              "urlInput= ", urlInput);
+              
+  // call addStory method
+  const nameVar = await storyList.addStory(user,
+                  {titleInput, authorInput, urlInput});
+
+  // put new story onto page
+
+}
+
+
+// Click event that calls newStorySubmission
+$("#submitStoryButton").on("click", submitStory);
