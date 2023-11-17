@@ -111,9 +111,10 @@ class StoryList {
     return newStory;
   //   let newStory = await storyList.addStory(currentUser,
   //     {author:"Elie Schoppik",title:"Four Tips for Moving Faster as a Developer", url: "https://www.rithmschool.com/blog/developer-productivity"});
-
-
-  }
+    // name: Eric
+    // username: EricH
+    // pass: "Letmetryyourfeature"
+}
 }
 
 

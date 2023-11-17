@@ -36,3 +36,16 @@ function updateNavOnLogin() {
   $navLogOut.show();
   $navUserProfile.text(`${currentUser.username}`).show();
 }
+
+function createStoryForm(){
+  const formHTML = "<form class='createStoryForm'> <div><label>author</label><input type='text'></div> <div><label>title</label><input type='text'></div>  <div><label>url</label><input type='text'></div> </form>";
+  $(".stories-container").before(formHTML);
+  $(".createStoryForm div").css("display", "inline");
+  // $(".createStoryForm label").attr("class", "col-6");
+  // $(".createStoryForm input").attr("class", "col-6");
+  $(".createStoryForm").hide();
+  $(".createStoryForm").show();
+}
+
+
+createStoryForm();
