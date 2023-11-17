@@ -21,11 +21,8 @@ class Story {
     this.createdAt = createdAt;
   }
 
-  /** Parses hostname out of URL and returns it. */
-
-  // FIXME: models.js:31 Uncaught (in promise) TypeError: Failed to construct
-  //'URL': Invalid URL
-
+  /** Parses hostname out of URL and returns it.
+  */
   getHostName() {
 
     // Create url object that can be used to access hostname
@@ -35,6 +32,13 @@ class Story {
     // locate and return hostname
     return urlObject.hostname;
   }
+
+  /** TODO: write this later!
+   *
+   */
+//   static retrieveID() {
+
+//   }
 }
 
 
@@ -160,6 +164,67 @@ class User {
     this.loginToken = token;
   }
 
+  /** Takes story instance, sends API request to show when user favorites story,
+   *  adds story instance to list of 'favorite' stories.
+   */
+  async favoriteAStory(storyInstance) {
+    console.log("storyInstance=", storyInstance);
+
+    const storyId = storyInstance.storyId;
+    console.log("storyID=", storyId);
+
+    const username = this.username;
+    console.log("username=", username)
+
+    // Grab current user token
+    const token = this.loginToken;
+
+    console.log("token=", token);
+
+    // Make json for post request
+    const bodyContent = JSON.stringify({
+                        token: token,
+                        });
+    console.log("JSON string ", bodyContent);
+
+    // Add story data to API
+    const options = {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: bodyContent
+    };
+
+    console.log("options", options);
+    // Post request
+
+    const postRequestURL = `${BASE_URL}/users/${username}/favorites/${storyId}`;
+
+    const response = await fetch(postRequestURL, options);
+    console.log('responseFavorites=', response);
+
+    // Grab data for new story from the post request
+    const dataForFavorites = await response.json();
+
+    console.log('dataForFavorites=', dataForFavorites);
+
+  }
+
+
+  /** Takes a story instance, sends API request to show when a user unfavorites
+   *  a story, removes story instance from list of 'favorite stories' (need only
+   *  officially update 'favorite stories' list upon refresh).
+   */
+  // async unfavoriteAStory(storyInstance) {
+  //   /** we will have an array (as a response from the server): a JSON string
+  //    * containing the array (so we'll convert a JSON string to an object and
+  //    * inside will be that array)
+  //    *
+  //    * this array will include a user's current favorites
+  //    *
+  //    * The user should be able to unfavorite a story from
+  //    */
+  // }
+
   /** Register new user in API, make User instance & return it.
    *
    * - username: a new username
@@ -252,3 +317,33 @@ class User {
     }
   }
 }
+
+
+
+/** Takes event object, finds story that was clicked. Determines whether that
+ *  story is currently on favorites list. If not, adds story to favorites list
+ *  via favoriteAStory method. Otherwise, unfavorites a story via
+ *  unfavoriteAStory method. Returns nothing.
+ */
+async function handleFavoriteEvent(evt){
+  // find story that was clicked on
+  console.log('buttonWasClicked');
+
+  console.log("story favorited! evt=", evt, "evt.target=", evt.target);
+
+  $evtTarget = $(evt.target);
+
+  const currentStory = $evtTarget.data('story-instance');
+
+  console.log('currentStory=', currentStory);
+
+  const favoriteStory = await currentUser.favoriteAStory(currentStory);
+
+
+}
+
+
+$favoriteButton.on('submit', handleFavoriteEvent(evt));
+
+
+

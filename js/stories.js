@@ -32,9 +32,15 @@ function generateStoryMarkup(story) {
         <small class="story-author">by ${story.author}</small>
         <small class="story-user">posted by ${story.username}</small>
       </li>
+      <div style="display: inline">
+        <button type="button" class="favoriteAStory" data-story-instance="${story}">
+          Click Me to favorite
+        </button>
+      </div>
+      <hr>
     `);
 }
-
+//FIXME: make button HTML prettier
 /** Gets list of stories from server, generates their HTML, and puts on page. */
 
 function putStoriesOnPage() {
