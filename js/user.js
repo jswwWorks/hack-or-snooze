@@ -114,3 +114,30 @@ function updateUIOnUserLogin() {
 
   updateNavOnLogin();
 }
+
+
+
+/** Takes event object, finds story that was clicked. Determines whether that
+ *  story is currently on favorites list. If not, adds story to favorites list
+ *  via favoriteAStory method. Otherwise, unfavorites a story via
+ *  unfavoriteAStory method. Returns nothing.
+ */
+async function handleFavoriteEvent(evt){
+  // find story that was clicked on
+  console.log('buttonWasClicked');
+
+  console.log("story favorited! evt=", evt, "evt.target=", evt.target);
+
+  $evtTarget = $(evt.target);
+
+  const currentStory = $evtTarget.data('story-instance');
+
+  console.log('currentStory=', currentStory);
+
+  const favoriteStory = await currentUser.favoriteAStory(currentStory);
+
+
+}
+
+console.log($(".favoriteAStory"));
+$(".favoriteAStory").on('click', handleFavoriteEvent);
