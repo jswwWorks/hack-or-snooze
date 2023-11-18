@@ -31,17 +31,24 @@ function generateStoryMarkup(story) {
         <small class="story-hostname">(${hostName})</small>
         <small class="story-author">by ${story.author}</small>
         <small class="story-user">posted by ${story.username}</small>
+        <i
+          class="bi bi-star"
+          data-story-instance="${story}"
+        >
+        </i>
       </li>
-      <div style="display: inline">
-        <button type="button" class="favoriteAStory" data-story-instance="${story}">
-          Click Me to favorite
-        </button>
-      </div>
-      <hr>
     `);
 }
 //FIXME: make button HTML prettier
 /** Gets list of stories from server, generates their HTML, and puts on page. */
+
+// <div style="display: inline">
+// <button type="button" class="favoriteAStory" data-story-instance="${story}">
+//   Click Me to favorite
+// </button>
+// </div>
+// <hr>
+
 
 function putStoriesOnPage() {
   console.debug("putStoriesOnPage");

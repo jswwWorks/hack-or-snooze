@@ -128,9 +128,7 @@ async function handleFavoriteEvent(evt){
 
   console.log("story favorited! evt=", evt, "evt.target=", evt.target);
 
-  $evtTarget = $(evt.target);
-
-  const currentStory = $evtTarget.data('story-instance');
+  const currentStory = evt.target.getAttribute("data-story-instance");
 
   console.log('currentStory=', currentStory);
 
@@ -140,4 +138,6 @@ async function handleFavoriteEvent(evt){
 }
 
 console.log($(".favoriteAStory"));
-$(".favoriteAStory").on('click', handleFavoriteEvent);
+$("#all-stories-list").on('click', "i", handleFavoriteEvent);
+
+
